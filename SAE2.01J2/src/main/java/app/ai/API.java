@@ -94,8 +94,4 @@ public class API {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void main(String  arg[]) {
-		new API();
-	}
 }
