@@ -1,70 +1,79 @@
 package app.ai;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import app.model.fight.*;
 import app.model.entity.*;
 
-public class FightNode extends Node implements INodeStar{
+public class FightNode<Spell> extends Node<Spell> implements INodeStar<Spell>{
 	private Monster monstre;
 	private Player player;
 	
 	public FightNode() {
 		super();
-	}
-
-    public FightNode(Object o, int i, Object o1) {
-        super();
-		this.path = o;
-		this.cost = i;
-		this.parent = (INode)o1;
-    }
-
-    @Override
-	public int getHeuristic() {
-		// TODO Auto-generated method stub
-		return 0;
+		this.player = new Player();
+		this.monstre = new Monster();
 	}
 
 	@Override
 	public boolean isGoal() {
-		// TODO Auto-generated method stub
-		return false;
+		if (monstre.getCurrentHP() <= 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
 	public boolean isDeadLock() {
-		// TODO Auto-generated method stub
-		return false;
+		if (player.getCurrentHP() <= 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
 	public Map getNeighbors() {
-		// TODO Auto-generated method stub
-		return null;
+		Player nouveauJoueur = this.player.clone();
+		Monster nouveauMonstre = this.monstre.clone();
+		
+		for (app.model.fight.Spell s : nouveauJoueur.availableSpells()) {
+			
+		}
+		Node<Spell> nouveauNoeux = new Node<Spell>();
+		nouveauNoeux.parent = (INode<Spell>) this.getParent();
+		nouveauNoeux.cost = this.getCost();
+		HashMap<?, Node<Spell>> map = new HashMap<Spell, Node<Spell>>();
+		return map;
 	}
 
 	@Override
-	public List rebuildPath() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<INode<Spell>> rebuildPath() {
+		return super.rebuildPath();
 	}
 
 	@Override
-	public Object getPath() {
-		// TODO Auto-generated method stub
-		return null;
+	public Spell getPath() {
+		return (Spell) super.getPath();
 	}
 
 	@Override
-	public INode getParent() {
-		// TODO Auto-generated method stub
-		return null;
+	public INode<Spell> getParent() {
+		return super.getParent();
 	}
 
 	@Override
 	public int getCost() {
-		// TODO Auto-generated method stub
+		return super.getCost();
+	}
+
+	@Override
+	public int getHeuristic() {
 		return 0;
 	}
 	

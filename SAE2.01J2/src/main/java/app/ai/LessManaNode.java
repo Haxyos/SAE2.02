@@ -3,14 +3,18 @@ package app.ai;
 import app.model.entity.Monster;
 import app.model.entity.Player;
 
-public class LessManaNode extends FightNode implements INode{
+public class LessManaNode<Spell> extends FightNode<Spell>{
 
+	
 	private Monster monstre;
 	private Player player;
-
-    public LessManaNode(Object o, int i, Object o1, Player player, Monster monster) {
-        super(o, i, o1);
-        this.player = player;
-        this.monstre = monster;
-    }
+	
+	public LessManaNode(Object object, int i, Object object2, Player player2, Monster monster) {
+		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public int getHeuristic() {
+		return player.getMaximumMana() - player.getCurrentMana();
+	}
 }

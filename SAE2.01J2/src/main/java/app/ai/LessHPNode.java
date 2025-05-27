@@ -6,43 +6,17 @@ import java.util.Map;
 import app.model.entity.Monster;
 import app.model.entity.Player;
 
-public class LessHPNode extends FightNode implements INode{
+public class LessHPNode<Spell> extends FightNode<Spell>{
 	
 	private Monster monstre;
 	private Player player;
-	@Override
-	public boolean isGoal() {
-		// TODO Auto-generated method stub
-		return false;
+	public LessHPNode(Object object, int i, Object object2, Player player2, Monster monster) {
+		super();
+		this.player = player2;
+		this.monstre = monster;
 	}
 	@Override
-	public boolean isDeadLock() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public Map getNeighbors() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List rebuildPath() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Object getPath() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public INode getParent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public int getCost() {
-		// TODO Auto-generated method stub
+	public int getHeuristic() {
 		return 0;
 	}
 
