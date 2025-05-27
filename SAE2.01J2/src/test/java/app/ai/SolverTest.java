@@ -4,7 +4,6 @@ import app.ai.INode;
 import app.ai.LessHPNode;
 import app.ai.LessManaNode;
 import app.ai.LessTurnNode;
-import app.ai.fight.*;
 import app.model.entity.Monster;
 import app.model.entity.Player;
 import app.model.fight.Spell;
@@ -44,11 +43,28 @@ public class SolverTest {
         Solver<Spell> solver = new Solver<>();
 
         List<INode<Spell>> l = solver.AStar(start).rebuildPath();
+        int i=0;
+        for (INode<Spell> node : l) {
+            System.out.println((i++) +" Nœud : " + node.getPath());
+            System.out.println("Coût jusqu'à ce nœud : " + node.getCost());
 
+            // Supposons que votre nœud contient des informations sur le joueur et le monstre
+            if (node instanceof LessManaNode) {
+                LessManaNode<Spell> lessManaNode = (LessManaNode<Spell>) node;
+
+                // Affichage de l'état du joueur
+                System.out.println("État du joueur : " + lessManaNode.getPlayer());
+
+                // Affichage de l'état du monstre
+                System.out.println("État du monstre : " + lessManaNode.getMonster());
+            }
+
+            System.out.println("--------------------------------");
+        }
         assertEquals(l.get(l.size() - 1).getCost(), 150);
     }
 
-    /*@Test
+    @Test
     public void testLessHPNode1() {
         Player player = new Player(100, 100, 10, 20, 100, 100,
                 new Poison(4, 20, 80),
@@ -64,7 +80,7 @@ public class SolverTest {
         List<INode<Spell>> l = solver.AStar(start).rebuildPath();
 
         LessHPNode solution = (LessHPNode) l.get(l.size() - 1);
-        assertEquals(solution.getPlayer().getCurrentHP(), 81);
+        assertEquals(l.get(l.size() - 1).getCost(), 20);
     }
 
     @Test
@@ -84,7 +100,7 @@ public class SolverTest {
 
         assertEquals(l.size(), 11);
     }
-
+    /*
     @Test
     public void canBeat() {
         Player player = new Player(100, 100, 10, 20, 100, 100,

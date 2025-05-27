@@ -1,6 +1,7 @@
 package app.ai;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -24,15 +25,16 @@ public abstract class Node<T> implements INode<T>{
 	
 	@Override
 	public abstract Map<INode<T>, Integer> getNeighbors();
-	
+
 	@Override
 	public List<INode<T>> rebuildPath() {
-		ArrayList<INode<T>> list = new  ArrayList<INode<T>>();
-		INode<T> par = this.parent;
-		while(par != null) {
-			list.add(par);
-			par = par.getParent();
+		ArrayList<INode<T>> list = new ArrayList<>();
+		INode<T> current = this;
+		while (current != null) {
+			list.add(current);
+			current = current.getParent();
 		}
+		Collections.reverse(list);
 		return list;
 	}
 	

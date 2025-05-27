@@ -33,26 +33,11 @@ public class FightNode<Spell> extends Node<Spell> implements INodeStar<Spell>{
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public Map getNeighbors() {
-		HashMap<Node<Spell>, Integer> map = new HashMap<Node<Spell>, Integer>();
-		for (app.model.fight.Spell s : player.availableSpells()) {
-			Player nouveauJoueur = this.player.clone();
-			Monster nouveauMonstre = this.monstre.clone();
-			if (s.isSelfSpell()) {
-				s.applyEffect(nouveauJoueur);
-			}
-			else {
-				s.applyEffect(nouveauMonstre);
-			}
-			FightNode<Spell> nouveauNoeux = new FightNode<Spell>(cost, parent, path, player, monstre);
-			nouveauNoeux.parent = (INode<Spell>) this.getParent();
-			nouveauNoeux.cost = this.getCost();
-			map.put(new FightNode<Spell>(cost, parent, (Spell) s, nouveauJoueur, nouveauMonstre), player.availableSpells().size());
-		}
-		return map;
+	public Map<INode<Spell>, Integer> getNeighbors() {
+		return Map.of();
 	}
+
 
 	@Override
 	public List<INode<Spell>> rebuildPath() {
