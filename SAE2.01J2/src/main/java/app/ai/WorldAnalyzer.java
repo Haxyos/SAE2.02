@@ -1,8 +1,11 @@
 package app.ai;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import app.model.map.Place;
@@ -12,10 +15,14 @@ public class WorldAnalyzer {
 
 	private World world;
 	
+	public WorldAnalyzer(World world) {
+		this.world = world;
+	}
+	
 	public boolean isConnexe() {
 		if (world.getPlaces().size() == 0) return true;
 		
-		Set<Place> visited = new HashSet();
+		Set<Place> visited = new HashSet<>();
 		dfs(world.getPlaces().get(0),visited);
 		
 		if ( visited.size() == world.getPlaces().size()) {
@@ -34,22 +41,61 @@ public class WorldAnalyzer {
 	}
 	
 	public boolean isFinishable() {
-		return true;
+		List<Place> starts = new ArrayList<>();
+        List<Place> ends = new ArrayList<>();
+
+        for (Place place : world.getPlaces()) {
+            if (place.isStart()) starts.add(place);
+            if (place.isEnd()) ends.add(place);
+        }
+
+        if (starts.isEmpty() || ends.isEmpty()) return false;
+
+        for (Place start : starts) {
+            if (!peutFinirSansMonstre(start, ends)) {
+                return false;
+            }
+        }
+        
+        return true;
 	}
 	
-	/* Bonus :
-	 * 
-	 * public int lessDistanceToQuit(Place from){
-	 * 
-	 * }
-	 * 
-	 * public int lessPlaceToQuit(Place from){
-	 * 
-	 * }
-	 */
+	private boolean peutFinirSansMonstre(Place start, List<Place> ends) {
+		Set<Place> visited = new HashSet<>();
+        Queue<Place> queue = new LinkedList<>();
+        queue.add(start);
+
+        while (!queue.isEmpty()) {
+            Place current = queue.poll();
+            if (!visited.add(current)) continue;
+
+            if (current.isEnd()) return true;
+            if (current.hasMonster() && !current.isStart()) continue;
+
+            for (Place neighbor : current.getPaths().keySet()) {
+                queue.add(neighbor);
+            }
+        }
+
+        return false;
+    }
 	
-	List<Map<Place,Integer>>djikstraWithSteps(Place start){
+
+	 public int lessDistanceToQuit(Place from){
+		 return 1;
+	 }
+	 
+	 public int lessPlaceToQuit(Place from){
+		 return 1;
+	 }
+	 
+	List<Map<Place,Integer>>dijkstraWithSteps(Place start){
 		return null;
-		
 	}
+	
+	public Integer lessDistanceToReach(Place placeFromId, Place placeFromId2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
