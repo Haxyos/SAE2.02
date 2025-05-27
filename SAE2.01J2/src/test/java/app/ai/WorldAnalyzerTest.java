@@ -1,18 +1,12 @@
-package app.controller;
+package app.ai;
 
 import app.Main;
-import app.ai.WorldAnalyzer;
 import app.model.map.World;
 import app.model.parser.WorldIO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.IOException;
-
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WorldAnalyzerTest {
 
@@ -34,7 +28,8 @@ public class WorldAnalyzerTest {
         assertTrue(analyzer.isConnexe());
         assertFalse(analyzer2.isConnexe());
     }
-    
+
+
     @Test
     public void testFinish() {
     	assertTrue(analyzer.isFinishable());

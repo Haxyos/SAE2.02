@@ -43,7 +43,7 @@ public class Solver<T> {
 
         // Étape 2 : Initialiser la PriorityQueue avec le comparateur basé sur la méthode getHeuristic()
         PriorityQueue<INodeStar<T>> nodeQueue = new PriorityQueue<>(Comparator.comparingInt(
-                node -> costMap.get(node) + node.getHeuristic()
+                node -> node.getCost() + node.getHeuristic()
         ));
 
         // Étape 3 : Ajouter le nœud de départ à la file de priorités

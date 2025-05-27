@@ -4,7 +4,6 @@ module sae2025 {
     requires javafx.controls;
     requires java.net.http;
     requires java.desktop;
-    requires jdk.incubator.vector;
 
     opens app.model.map;
 
