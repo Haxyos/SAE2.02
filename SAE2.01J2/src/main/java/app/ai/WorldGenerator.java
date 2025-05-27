@@ -69,7 +69,7 @@ public class WorldGenerator {
 
 				System.out.println();
 				ArrayList<String> nomText = creeNomEtText();
-				Thread.sleep(500);
+				Thread.sleep(1500);
 				Place place = new Place(id, nomText.get(0), monstre, nomText.get(1), world, true, false, false);
 				world.addPlace(place);
 			}
@@ -83,7 +83,7 @@ public class WorldGenerator {
 				}
 				id++;
 				ArrayList<String> nomText = creeNomEtText();
-				Thread.sleep(500);
+				Thread.sleep(1500);
 				Place place = new Place(id, nomText.get(0), monstre, nomText.get(1), world, false, true, false);
 				world.addPlace(place);
 			}
@@ -97,7 +97,7 @@ public class WorldGenerator {
 				}
 				id++;
 				ArrayList<String> nomText = creeNomEtText();
-				Thread.sleep(500);
+				Thread.sleep(1500);
 				Place place = new Place(id, nomText.get(0), monstre, nomText.get(1), world, false, false, true);
 				world.addPlace(place);
 			}
@@ -114,7 +114,7 @@ public class WorldGenerator {
 					}
 					id++;
 					ArrayList<String> nomText = creeNomEtText();
-					Thread.sleep(500);
+					Thread.sleep(1500);
 					Place place = new Place(id, nomText.get(0), monstre, nomText.get(1), world, false, false, false);
 					world.addPlace(place);
 				}
