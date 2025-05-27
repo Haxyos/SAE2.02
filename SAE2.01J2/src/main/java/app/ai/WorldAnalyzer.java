@@ -95,7 +95,7 @@ public class WorldAnalyzer {
 	 
 	 */
 	 
-	List<Map<Place,Integer>>dijkstraWithSteps(Place start){
+	public List<Map<Place,Integer>>dijkstraWithSteps(Place start){
 		List<Map<Place,Integer>> steps = new ArrayList<>();
 		Map<Place,Integer> distances = new HashMap<>();
 		Set<Place> visited = new HashSet<>();
@@ -149,7 +149,15 @@ public class WorldAnalyzer {
 	}
 		
 	public Integer lessDistanceToReach(Place placeFromId, Place placeFromId2) {
-		return null;
+		List<Map<Place, Integer>> steps = dijkstraWithSteps(placeFromId);
+	    int result = Integer.MAX_VALUE;
+
+	    for (Map<Place, Integer> step : steps) {
+	        if (step.containsKey(placeFromId2)) {
+	            result = step.get(placeFromId2);
+	        }
+	    }
+
+	    return result;
 	}
-	
 }
