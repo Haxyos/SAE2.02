@@ -4,6 +4,9 @@ module sae2025 {
     requires javafx.controls;
     requires java.net.http;
     requires java.desktop;
+	requires org.junit.jupiter.api;
+	requires jdk.incubator.vector;
+	requires junit;
 
     opens app.model.map;
 
