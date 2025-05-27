@@ -46,4 +46,16 @@ public class WorldAnalyzerTest {
         assertEquals(12, analyzer.lessDistanceToReach(w.getPlaceFromId(1), w.getPlaceFromId(6)));
         assertEquals(9, analyzer.lessDistanceToReach(w.getPlaceFromId(1), w.getPlaceFromId(9)));
     }
+    
+    /*
+    @Test
+    public void testLessDistanceToQuit() {
+    	assertEquals(9, analyzer.lessDistanceToQuit(w.getPlaceFromId(1)));
+    }
+    
+    @Test
+    public void testLessPlaceToQuit() {
+    	assertEquals(2, analyzer.lessPlaceToQuit(w.getPlaceFromId(1)));
+    }
+    */
 }

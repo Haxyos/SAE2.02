@@ -83,19 +83,20 @@ public class WorldAnalyzer {
         return false;
     }
 	
-	/*Bonus :
 	
-	 public int lessDistanceToQuit(Place from){
-		 return 1;
+	 public int lessDistanceToQuit(Place from){ //Compter la distance à parcourir jusqu'à une place de sortie
+		 return 0;
 	 }
 	 
-	 public int lessPlaceToQuit(Place from){
-		 return 1;
+	 
+	 
+	 public int lessPlaceToQuit(Place from){ //Compter le nombre de places à parcourir jusqu'à une place de sortie
+		 return 0;
 	 }
 	 
-	 */
 	 
-	public List<Map<Place,Integer>>dijkstraWithSteps(Place start){
+	
+	public List<Map<Place,Integer>> dijkstraWithSteps(Place start){
 		List<Map<Place,Integer>> steps = new ArrayList<>();
 		Map<Place,Integer> distances = new HashMap<>();
 		Set<Place> visited = new HashSet<>();
@@ -137,11 +138,11 @@ public class WorldAnalyzer {
 
 	    return steps;
 	}
-
+	
 	private static class PlaceDistance {
 	    Place place;
 	    int distance;
-
+	    
 	    PlaceDistance(Place place, int distance) {
 	        this.place = place;
 	        this.distance = distance;
@@ -151,13 +152,13 @@ public class WorldAnalyzer {
 	public Integer lessDistanceToReach(Place placeFromId, Place placeFromId2) {
 		List<Map<Place, Integer>> steps = dijkstraWithSteps(placeFromId);
 	    int result = Integer.MAX_VALUE;
-
+	    
 	    for (Map<Place, Integer> step : steps) {
 	        if (step.containsKey(placeFromId2)) {
 	            result = step.get(placeFromId2);
 	        }
 	    }
-
+	    
 	    return result;
 	}
 }
