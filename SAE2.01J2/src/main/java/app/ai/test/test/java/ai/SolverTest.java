@@ -1,4 +1,4 @@
-package ai;
+package app.ai.test.test.java.ai;
 
 import app.ai.INode;
 import app.ai.LessHPNode;

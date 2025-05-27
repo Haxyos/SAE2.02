@@ -1,15 +1,18 @@
 package app.ai;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import app.model.fight.*;
 import app.model.entity.*;
 
-public class FightNode<Spell> extends Node<Spell>{
+public class FightNode<Spell> extends Node<Spell> implements INodeStar<Spell>{
 	private Monster monstre;
 	private Player player;
 	
 	public FightNode() {
+		super();
 		this.player = new Player();
 		this.monstre = new Monster();
 	}
@@ -36,25 +39,27 @@ public class FightNode<Spell> extends Node<Spell>{
 
 	@Override
 	public Map getNeighbors() {
-		Player nouveauJoueur = this.player;
-		Monster nouveauMonstre = this.monstre;
+		Player nouveauJoueur = this.player.clone();
+		Monster nouveauMonstre = this.monstre.clone();
 		
-		Node<Entity> nouveauNoeux = new Node<Entity>();
-		nouveauNoeux.parent = (INode<Entity>) this.getParent();
+		for (app.model.fight.Spell s : nouveauJoueur.availableSpells()) {
+			
+		}
+		Node<Spell> nouveauNoeux = new Node<Spell>();
+		nouveauNoeux.parent = (INode<Spell>) this.getParent();
 		nouveauNoeux.cost = this.getCost();
-		return null;
+		HashMap<?, Node<Spell>> map = new HashMap<Spell, Node<Spell>>();
+		return map;
 	}
 
 	@Override
-	public List rebuildPath() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<INode<Spell>> rebuildPath() {
+		return super.rebuildPath();
 	}
 
 	@Override
 	public Spell getPath() {
-		
-		return null;
+		return (Spell) super.getPath();
 	}
 
 	@Override
@@ -64,7 +69,11 @@ public class FightNode<Spell> extends Node<Spell>{
 
 	@Override
 	public int getCost() {
-		// TODO Auto-generated method stub
+		return super.getCost();
+	}
+
+	@Override
+	public int getHeuristic() {
 		return 0;
 	}
 	
