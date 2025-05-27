@@ -1,5 +1,6 @@
 package app.ai;
 
+import app.model.entity.Entity;
 import app.model.entity.Monster;
 import app.model.entity.Player;
 
@@ -10,5 +11,18 @@ public class LessTurnNode<Spell> extends FightNode<Spell>{
 		this.player = player;
 		this.monstre = monster;
 		
+	}
+	
+	public int getHeuristic() {
+		return (int) Math.ceil(super.monstre.getCurrentHP()/super.player.getAttack());
+		
+	}
+	
+	public Entity getPlayer() {
+		return super.player;
+	}
+	
+	public Entity getMonster() {
+		return super.monstre;
 	}
 }

@@ -33,9 +33,10 @@ public class FightNode<Spell> extends Node<Spell> implements INodeStar<Spell>{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Map getNeighbors() {
-		HashMap<?, Node<Spell>> map = new HashMap<Spell, Node<Spell>>();
+		HashMap<Node<Spell>, Integer> map = new HashMap<Node<Spell>, Integer>();
 		for (app.model.fight.Spell s : player.availableSpells()) {
 			Player nouveauJoueur = this.player.clone();
 			Monster nouveauMonstre = this.monstre.clone();
@@ -48,8 +49,8 @@ public class FightNode<Spell> extends Node<Spell> implements INodeStar<Spell>{
 			FightNode<Spell> nouveauNoeux = new FightNode<Spell>(cost, parent, path, player, monstre);
 			nouveauNoeux.parent = (INode<Spell>) this.getParent();
 			nouveauNoeux.cost = this.getCost();
+			map.put(new FightNode<Spell>(cost, parent, (Spell) s, nouveauJoueur, nouveauMonstre), player.availableSpells().size());
 		}
-		
 		return map;
 	}
 

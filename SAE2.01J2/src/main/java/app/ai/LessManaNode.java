@@ -1,5 +1,6 @@
 package app.ai;
 
+import app.model.entity.Entity;
 import app.model.entity.Monster;
 import app.model.entity.Player;
 
@@ -13,5 +14,13 @@ public class LessManaNode<Spell> extends FightNode<Spell>{
 	@Override
 	public int getHeuristic() {
 		return super.player.getMaximumMana() - super.player.getCurrentMana();
+	}
+	
+	public Entity getPlayer() {
+		return super.player;
+	}
+	
+	public Entity getMonster() {
+		return super.monstre;
 	}
 }
