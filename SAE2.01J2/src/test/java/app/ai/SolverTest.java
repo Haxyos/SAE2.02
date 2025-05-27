@@ -3,6 +3,8 @@ package app.ai;
 import app.ai.INode;
 import app.ai.LessHPNode;
 import app.ai.LessManaNode;
+import app.ai.LessTurnNode;
+import app.ai.fight.*;
 import app.model.entity.Monster;
 import app.model.entity.Player;
 import app.model.fight.Spell;
@@ -74,7 +76,7 @@ public class SolverTest {
 
         Monster monster = new Monster("", 210, 210, 10, 20);
 
-        LessTurnNode start = new LessTurnNode(null, 0, null, player, monster);
+        LessTurnNode start = new LessTurnNode(0, null, null, player, monster);
 
         Solver<Spell> solver = new Solver<>();
 
