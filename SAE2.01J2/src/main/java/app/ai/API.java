@@ -19,7 +19,7 @@ public class API {
 	private HttpURLConnection httpConn;
 	private String result;
 	private int codeErr;
-	
+
 	public int getCodeErr() {
 		return codeErr;
 	}
@@ -41,19 +41,19 @@ public class API {
 	}
 
 	private JSONObject responseSchema = new JSONObject().put("type", "object").put("properties", new JSONObject().put("nom", new JSONObject().put("type", "string")).put("texte", new JSONObject().put("type", "string"))).put("required", new JSONArray().add("nom").add("texte"));
-	
+
 	private JSONObject generationConfig = new JSONObject().put("maxOutputTokens", 200).put("responseMimeType", "application/json").put("responseSchema", responseSchema);
-	
-	private JSONObject jsonText = new JSONObject().put("text", "Crée des lieux cohérents pour un jeu de rôle basé sur de la fantasy? ");
+
+	private JSONObject jsonText = new JSONObject().put("text", "places fantasy inspiré du seigneur des anneaux ");
 	private JSONArray partsArr = new JSONArray().add(jsonText);
 	private JSONObject jsonParts = new JSONObject().put("parts", partsArr);
 	private JSONArray jsonContents = new JSONArray().add(jsonParts);
 	//private JSONObject jsonConf = new JSONObject().put("generationConfig", JSONObject);
 	private JSONObject jsonGlobal= new JSONObject().put("contents", jsonContents).put("generationConfig", generationConfig);
-	
-	
-			
-			
+
+
+
+
 	public API() {
 		try {
 			url = new URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + key);
@@ -61,7 +61,7 @@ public class API {
 		catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			httpConn = (HttpURLConnection)url.openConnection();
 			httpConn.setRequestMethod("POST");
@@ -76,26 +76,22 @@ public class API {
 			os.close();
 			httpConn.connect();
 
-			
+
 			BufferedInputStream bis = new BufferedInputStream(httpConn.getInputStream());
 			ByteArrayOutputStream buf = new ByteArrayOutputStream();
 			int result2 = bis.read();
 			while(result2 != -1) {
-			    buf.write((byte) result2);
-			    result2 = bis.read();
+				buf.write((byte) result2);
+				result2 = bis.read();
 			}
 			result = buf.toString();
 			codeErr = httpConn.getResponseCode();
-			
+
 			//System.out.println(httpConn.getResponseCode());
 			//System.out.println(result);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public static void main(String  arg[]) {
-		new API();
 	}
 }

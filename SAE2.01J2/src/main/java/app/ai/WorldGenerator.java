@@ -1,5 +1,6 @@
 package app.ai;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import app.model.entity.Monster;
@@ -9,13 +10,39 @@ import app.model.exceptions.NotEnoughtPlaceException;
 import app.model.map.Path;
 import app.model.map.Place;
 import app.model.map.World;
+import app.model.parser.JSONArray;
 import app.model.parser.JSONObject;
 import app.model.parser.JSONParser;
 
 public class WorldGenerator {
+
+	public static ArrayList<String> creeNomEtText() {
+		API api = new API();
+		JSONParser parser = new JSONParser(api.getResult());
+		JSONObject nomEtTexte = parser.parse();
+		JSONArray candidates = (JSONArray) nomEtTexte.get("candidates");
+		JSONObject candidate0 = (JSONObject) candidates.get(0);
+		JSONObject content = (JSONObject) candidate0.get("content");
+		JSONArray parts = (JSONArray) content.get("parts");
+		JSONObject part0 = (JSONObject) parts.get(0);
+
+		String textJson = (String) part0.get("text");
+
+		JSONParser innerParser = new JSONParser(textJson);
+		JSONObject textParsed = innerParser.parse();
+
+		String nom = textParsed.getString("nom");
+		String texte = textParsed.getString("texte");
+		ArrayList<String> list = new ArrayList<String>();
+		list.add(0, nom); // l'element 0 de la liste serra toujours le nom
+		list.add(1, texte);// l'element 1 de la liste serra toujours le texte
+		return list;
+
+	}
+
 	public static World createWorld(String name, int nbPlace, Player p, float percentageEndPoint,
 			float percentageStartPoint, float percentageDefeatPoint, float percentageCoverage)
-					throws NotEnoughtPlaceException, MauvaisPourcentageException {
+					throws NotEnoughtPlaceException, MauvaisPourcentageException, InterruptedException {
 		World world = new World(name);
 		WorldAnalyzer analyze = new WorldAnalyzer(world);
 		Random rand = new Random();
@@ -33,40 +60,45 @@ public class WorldGenerator {
 
 			// Création des places de Début
 			for (int i = 0; i < nbPlace * percentageStartPoint; i++) {
-				int maxHP = rand.nextInt(1,250);
-				Monster monstre = new Monster("", maxHP, maxHP,  rand.nextInt(1,25), rand.nextInt(1,25));
+				int maxHP = rand.nextInt(1, 250);
+				Monster monstre = new Monster("", maxHP, maxHP, rand.nextInt(1, 25), rand.nextInt(1, 25));
 				if (Math.random() % 2 == 1) {
 					monstre = null;
 				}
 				id++;
-				API api = new API();
-				JSONParser parser = new JSONParser(api.getResult());
-				JSONObject nomEtTexte = parser.parse();
-				Place place = new Place(id, (String) nomEtTexte.get("nom"), monstre, "", world, true, false, false);
+
+				System.out.println();
+				ArrayList<String> nomText = creeNomEtText();
+				Thread.sleep(500);
+				Place place = new Place(id, nomText.get(0), monstre, nomText.get(1), world, true, false, false);
 				world.addPlace(place);
 			}
 
 			// Création des places de fin
 			for (int i = 0; i < nbPlace * percentageEndPoint; i++) {
-				int maxHP =  rand.nextInt(1,250);
-				Monster monstre = new Monster("", maxHP, maxHP,  rand.nextInt(1,25),  rand.nextInt(1,25));
+				int maxHP = rand.nextInt(1, 250);
+				Monster monstre = new Monster("", maxHP, maxHP, rand.nextInt(1, 25), rand.nextInt(1, 25));
 				if (Math.random() % 2 == 1) {
 					monstre = null;
 				}
 				id++;
-				Place place = new Place(id, "", monstre, "", world, false, true, false);
+				ArrayList<String> nomText = creeNomEtText();
+				Thread.sleep(500);
+				Place place = new Place(id, nomText.get(0), monstre, nomText.get(1), world, false, true, false);
 				world.addPlace(place);
 			}
 
 			// Création des Places piège
 			for (int i = 0; i < nbPlace * percentageDefeatPoint; i++) {
-				int maxHP =  rand.nextInt(1,250);
-				Monster monstre = new Monster("", maxHP, maxHP,  rand.nextInt(1,25),  rand.nextInt(1,25));
+				int maxHP = rand.nextInt(1, 250);
+				Monster monstre = new Monster("", maxHP, maxHP, rand.nextInt(1, 25), rand.nextInt(1, 25));
 				if (Math.random() % 2 == 1) {
 					monstre = null;
 				}
 				id++;
-				Place place = new Place(id, "", monstre, "", world, false, false, true);
+				ArrayList<String> nomText = creeNomEtText();
+				Thread.sleep(500);
+				Place place = new Place(id, nomText.get(0), monstre, nomText.get(1), world, false, false, true);
 				world.addPlace(place);
 			}
 
@@ -75,13 +107,15 @@ public class WorldGenerator {
 			if (totalPourcentage < 1) {
 				totalPourcentage = 1 - totalPourcentage;
 				for (int i = 0; i < nbPlace * totalPourcentage; i++) {
-					int maxHP =  rand.nextInt(1,250);
-					Monster monstre = new Monster("", maxHP, maxHP,  rand.nextInt(1,25),  rand.nextInt(1,25));
+					int maxHP = rand.nextInt(1, 250);
+					Monster monstre = new Monster("", maxHP, maxHP, rand.nextInt(1, 25), rand.nextInt(1, 25));
 					if (Math.random() % 2 == 1) {
 						monstre = null;
 					}
 					id++;
-					Place place = new Place(id, "", monstre, "", world, false, false, false);
+					ArrayList<String> nomText = creeNomEtText();
+					Thread.sleep(500);
+					Place place = new Place(id, nomText.get(0), monstre, nomText.get(1), world, false, false, false);
 					world.addPlace(place);
 				}
 			}
@@ -89,23 +123,20 @@ public class WorldGenerator {
 			WorldAnalyzer analyse = new WorldAnalyzer(world);
 			// Création des chemins
 
-
 			int nbCheminParPlace = (int) (percentageCoverage * nbPlace);
 			for (int i = 1; i <= world.getPlaces().size(); i++) {
 				for (int j = 0; j < nbCheminParPlace; j++) {
 					Path path = new Path(world.getPlaceFromId(i),
-							world.getPlaceFromId(rand.nextInt(1, world.getPlaces().size())),
-							rand.nextInt(1, 250));
+							world.getPlaceFromId(rand.nextInt(1, world.getPlaces().size())), rand.nextInt(1, 250));
 					world.addPath(path);
 				}
 			}
 			while (analyse.isConnexe() == false) {
 				Path path = new Path(world.getPlaceFromId(rand.nextInt(1, world.getPlaces().size())),
-						world.getPlaceFromId(rand.nextInt(1, world.getPlaces().size())),
-						rand.nextInt(1,250));
+						world.getPlaceFromId(rand.nextInt(1, world.getPlaces().size())), rand.nextInt(1, 250));
 				world.addPath(path);
 			}
-			System.out.println("Toujours dans la boucle");
+			analyze.setWorld(world);
 		}
 		return world;
 	}

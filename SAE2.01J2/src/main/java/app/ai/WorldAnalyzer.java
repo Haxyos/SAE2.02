@@ -18,6 +18,14 @@ public class WorldAnalyzer {
 
 	private World world;
 	
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
+	}
+
 	public WorldAnalyzer(World world) {
 		this.world = world;
 	}

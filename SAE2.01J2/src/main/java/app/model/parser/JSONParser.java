@@ -9,7 +9,7 @@ public class JSONParser {
     private final String parse;
 
     public JSONParser(String parse) {
-        this.parse = parse.trim().replaceAll("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", "");
+        this.parse = parse;//parse.trim().replaceAll("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", "");
     }
 
     public JSONObject parse() {
