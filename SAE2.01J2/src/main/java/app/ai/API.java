@@ -88,7 +88,7 @@ public class API {
 			codeErr = httpConn.getResponseCode();
 			
 			//System.out.println(httpConn.getResponseCode());
-			System.out.println(result);
+			//System.out.println(result);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
