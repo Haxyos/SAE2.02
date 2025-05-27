@@ -5,26 +5,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import app.model.fight.*;
+import app.model.fight.spells.*;
 import app.model.entity.*;
 
 public class FightNode<Spell> extends Node<Spell> implements INodeStar<Spell>{
-	private Monster monstre;
-	private Player player;
+	protected Monster monstre;
+	protected Player player;
 	
-	public FightNode(int cost, INode<Spell> parent, Spell path) {
+	public FightNode(int cost, INode<Spell> parent, Spell path, Player player, Monster monster) {
 		super(cost, parent, path);
-		this.player = new Player();
-		this.monstre = new Monster();
+		this.player = player.clone();
+		this.monstre = monster.clone();
 	}
 
 	@Override
 	public boolean isGoal() {
-		if (monstre.getCurrentHP() <= 0) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return monstre.isDead();
 	}
 
 	@Override
@@ -39,16 +35,21 @@ public class FightNode<Spell> extends Node<Spell> implements INodeStar<Spell>{
 
 	@Override
 	public Map getNeighbors() {
-		Player nouveauJoueur = this.player.clone();
-		Monster nouveauMonstre = this.monstre.clone();
-		
-		for (app.model.fight.Spell s : nouveauJoueur.availableSpells()) {
-			
-		}
-		Node<Spell> nouveauNoeux = new Node<Spell>();
-		nouveauNoeux.parent = (INode<Spell>) this.getParent();
-		nouveauNoeux.cost = this.getCost();
 		HashMap<?, Node<Spell>> map = new HashMap<Spell, Node<Spell>>();
+		for (app.model.fight.Spell s : player.availableSpells()) {
+			Player nouveauJoueur = this.player.clone();
+			Monster nouveauMonstre = this.monstre.clone();
+			if (s.isSelfSpell()) {
+				s.applyEffect(nouveauJoueur);
+			}
+			else {
+				s.applyEffect(nouveauMonstre);
+			}
+			FightNode<Spell> nouveauNoeux = new FightNode<Spell>(cost, parent, path, player, monstre);
+			nouveauNoeux.parent = (INode<Spell>) this.getParent();
+			nouveauNoeux.cost = this.getCost();
+		}
+		
 		return map;
 	}
 
