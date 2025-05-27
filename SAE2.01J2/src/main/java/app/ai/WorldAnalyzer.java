@@ -1,10 +1,13 @@
 package app.ai;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
@@ -80,7 +83,8 @@ public class WorldAnalyzer {
         return false;
     }
 	
-
+	/*Bonus :
+	
 	 public int lessDistanceToQuit(Place from){
 		 return 1;
 	 }
@@ -89,12 +93,62 @@ public class WorldAnalyzer {
 		 return 1;
 	 }
 	 
+	 */
+	 
 	List<Map<Place,Integer>>dijkstraWithSteps(Place start){
-		return null;
+		List<Map<Place,Integer>> steps = new ArrayList<>();
+		Map<Place,Integer> distances = new HashMap<>();
+		Set<Place> visited = new HashSet<>();
+		PriorityQueue<PlaceDistance> queue = new PriorityQueue<>(Comparator.comparingInt(pd -> pd.distance));
+
+	    for (Place place : world.getPlaces()) {
+	        distances.put(place, Integer.MAX_VALUE);
+	    }
+	    distances.put(start, 0);
+	    queue.add(new PlaceDistance(start, 0));
+
+	    while (!queue.isEmpty()) {
+	        PlaceDistance current = queue.poll();
+	        Place currentPlace = current.place;
+
+	        if (visited.contains(currentPlace)) continue;
+	        visited.add(currentPlace);
+
+	        Map<Place, Integer> stepUpdates = new HashMap<>();
+
+	        for (Map.Entry<Place, Integer> entry : currentPlace.getPaths().entrySet()) {
+	            Place neighbor = entry.getKey();
+	            int weight = entry.getValue();
+
+	            if (visited.contains(neighbor)) continue;
+
+	            int newDist = distances.get(currentPlace) + weight;
+	            if (newDist < distances.get(neighbor)) {
+	                distances.put(neighbor, newDist);
+	                queue.add(new PlaceDistance(neighbor, newDist));
+	                stepUpdates.put(neighbor, newDist);
+	            }
+	        }
+
+	        if (!stepUpdates.isEmpty()) {
+	            steps.add(stepUpdates);
+	        }
+	    }
+
+	    return steps;
 	}
-	
+
+	private static class PlaceDistance {
+	    Place place;
+	    int distance;
+
+	    PlaceDistance(Place place, int distance) {
+	        this.place = place;
+	        this.distance = distance;
+	    }
+	}
+		
 	public Integer lessDistanceToReach(Place placeFromId, Place placeFromId2) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

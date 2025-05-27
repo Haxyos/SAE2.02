@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.Main;
 import app.ai.WorldAnalyzer;
 import app.model.map.World;
 import app.model.parser.WorldIO;
@@ -18,7 +19,7 @@ public class WorldAnalyzerTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        w = WorldIO.loadWorld(WorldAnalyzerTest.class.getResourceAsStream("Monde1.json"));
+        w = WorldIO.loadWorld(Main.class.getResourceAsStream("Monde1.json"));
         analyzer = new WorldAnalyzer(w);
     }
 
