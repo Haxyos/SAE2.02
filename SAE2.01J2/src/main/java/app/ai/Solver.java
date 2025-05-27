@@ -3,36 +3,65 @@ package app.ai;
 import app.ai.INode;
 import app.ai.INodeStar;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.PriorityQueue;
-import java.util.Stack;
+import java.util.*;
 
-public class abstract Solver {
+public abstract class Solver<T> {
 
+    public INode<T> DFS(INode<T> startingNode) {
+        //initialisation noeud de départ
+        Set<INode<T>> visitedNodes = new HashSet<>();
+        Stack<INode<T>> nodesToExplore = new Stack<>();
+        nodesToExplore.push(startingNode);
 
-    public static INode<T> DFS(INode<T> startingNode){
+        //algorithme DFS
+        while (!nodesToExplore.isEmpty()) {
+            INode<T> currentNode = nodesToExplore.pop();
 
-        // initialize visited set and stack
-        Set<INode<T>> visited = new HashSet<>();
-        Stack<INode<T>> stack = new Stack<>();
-        stack.push(startingNode);
-
-        // DFS algorithm
-        while (!stack.empty()){
-            INode<T> currentNode = stack.pop();
-            if (visited.contains(currentNode)) {
+            if (visitedNodes.contains(currentNode)) {
                 continue;
             }
-            visited.add(currentNode);
+            visitedNodes.add(currentNode);
+
             if (currentNode.isGoal()) {
-                return currentNode; // Goal found
+                return currentNode;
             }
-            for (INode<T> neighbor : currentNode.getNeighbors()) {
-                stack.push(neighbor);
+
+            for (INode<T> neighborNode : currentNode.getNeighbors().keySet()) {
+                nodesToExplore.push(neighborNode);
             }
         }
         return null;
     }
-    
+
+    public INodeStar<T> AStar(INodeStar<T> startingNode) {
+        //initialisation noeud de départ
+        Set<INodeStar<T>> exploredNodes = new HashSet<>();
+        Map<INodeStar<T>, Integer> minimalCostMap = new HashMap<>();
+        PriorityQueue<INodeStar<T>> nodesToVisit = new PriorityQueue<>(Comparator.comparingInt(INodeStar::getHeuristic));
+        nodesToVisit.add(startingNode);
+        minimalCostMap.put(startingNode, 0);
+
+        //algorithme A*
+        while (!nodesToVisit.isEmpty()) {
+            INodeStar<T> currentNode = nodesToVisit.poll();
+
+            if (exploredNodes.contains(currentNode)) {
+                continue;
+            }
+            exploredNodes.add(currentNode);
+
+            if (currentNode.isGoal()) {
+                return currentNode;
+            }
+
+            for (INodeStar<T> neighborNode : currentNode.getNeighbors().keySet()) {
+                int costToNeighbor = minimalCostMap.get(currentNode) + neighborNode.getCost();
+                if (!minimalCostMap.containsKey(neighborNode) || costToNeighbor < minimalCostMap.get(neighborNode)) {
+                    minimalCostMap.put(neighborNode, costToNeighbor);
+                    nodesToVisit.add(neighborNode);
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -1,5 +1,6 @@
-package ai;
+package app.ai;
 
+import app.ai.Solver;
 import app.ai.fight.*;
 import app.model.entity.Monster;
 import app.model.entity.Player;
