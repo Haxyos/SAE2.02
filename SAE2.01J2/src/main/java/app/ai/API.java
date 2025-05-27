@@ -44,7 +44,7 @@ public class API {
 
 	private JSONObject generationConfig = new JSONObject().put("maxOutputTokens", 200).put("responseMimeType", "application/json").put("responseSchema", responseSchema);
 
-	private JSONObject jsonText = new JSONObject().put("text", "places fantasy inspiré du seigneur des anneaux ");
+	private JSONObject jsonText = new JSONObject().put("text", "Génère moi des lieux pour de mondes fantastiques pour un jeu");
 	private JSONArray partsArr = new JSONArray().add(jsonText);
 	private JSONObject jsonParts = new JSONObject().put("parts", partsArr);
 	private JSONArray jsonContents = new JSONArray().add(jsonParts);
