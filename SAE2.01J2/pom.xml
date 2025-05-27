@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>app</groupId>
     <artifactId>sae-2025-1.2</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>24</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>24</maven.compiler.source>
+        <maven.compiler.target>24</maven.compiler.target>
     </properties>
     <dependencies>
         <dependency>
@@ -23,8 +23,20 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.8.1</version>
+            <version>5.10.2</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.10.2</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>
@@ -34,7 +46,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <release>17</release>
+                    <release>24</release>
                     <source>24</source>
                     <target>24</target>
                     <compilerArgs>--enable-preview</compilerArgs>

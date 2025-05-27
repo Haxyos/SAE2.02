@@ -5,7 +5,7 @@ import app.ai.INodeStar;
 
 import java.util.*;
 
-public abstract class Solver<T> {
+public class Solver<T> {
 
     public INode<T> DFS(INode<T> startingNode) {
         //initialisation noeud de départ
@@ -54,11 +54,15 @@ public abstract class Solver<T> {
                 return currentNode;
             }
 
-            for (INodeStar<T> neighborNode : currentNode.getNeighbors().keySet()) {
-                int costToNeighbor = minimalCostMap.get(currentNode) + neighborNode.getCost();
-                if (!minimalCostMap.containsKey(neighborNode) || costToNeighbor < minimalCostMap.get(neighborNode)) {
-                    minimalCostMap.put(neighborNode, costToNeighbor);
-                    nodesToVisit.add(neighborNode);
+            for (INode<T> neighbor : currentNode.getNeighbors().keySet()) {
+                if (neighbor instanceof INodeStar) {
+                    @SuppressWarnings("unchecked")
+                    INodeStar<T> neighborNode = (INodeStar<T>) neighbor;
+                    int costToNeighbor = minimalCostMap.get(currentNode) + neighborNode.getCost();
+                    if (!minimalCostMap.containsKey(neighborNode) || costToNeighbor < minimalCostMap.get(neighborNode)) {
+                        minimalCostMap.put(neighborNode, costToNeighbor);
+                        nodesToVisit.add(neighborNode);
+                    }
                 }
             }
         }

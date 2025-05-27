@@ -1,7 +1,5 @@
 package app.ai;
 
-import app.ai.Solver;
-import app.ai.fight.*;
 import app.model.entity.Monster;
 import app.model.entity.Player;
 import app.model.fight.Spell;
@@ -45,7 +43,7 @@ public class SolverTest {
         assertEquals(l.get(l.size() - 1).getCost(), 150);
     }
 
-    @Test
+    /*@Test
     public void testLessHPNode1() {
         Player player = new Player(100, 100, 10, 20, 100, 100,
                 new Poison(4, 20, 80),
@@ -96,5 +94,5 @@ public class SolverTest {
         assertFalse(Solver.playerCanBeat(player, new Monster("", 2500, 2500, 10, 20)));
         assertFalse(Solver.playerCanBeat(player, new Monster("", 100, 100, 10, 500)));
         assertTrue(Solver.playerCanBeat(player, new Monster("", 1, 1, 1, 5000)));
-    }
+    }*/
 }

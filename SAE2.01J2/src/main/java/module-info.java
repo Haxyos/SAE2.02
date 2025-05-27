@@ -6,7 +6,6 @@ module sae2025 {
     requires java.desktop;
 	requires org.junit.jupiter.api;
 	requires jdk.incubator.vector;
-	requires junit;
 
     opens app.model.map;
 

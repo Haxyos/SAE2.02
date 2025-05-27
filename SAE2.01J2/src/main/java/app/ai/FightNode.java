@@ -12,8 +12,15 @@ public class FightNode extends Node implements INodeStar{
 	public FightNode() {
 		super();
 	}
-	
-	@Override
+
+    public FightNode(Object o, int i, Object o1) {
+        super();
+		this.path = o;
+		this.cost = i;
+		this.parent = (INode)o1;
+    }
+
+    @Override
 	public int getHeuristic() {
 		// TODO Auto-generated method stub
 		return 0;
