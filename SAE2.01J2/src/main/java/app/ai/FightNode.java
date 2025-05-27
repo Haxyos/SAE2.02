@@ -5,35 +5,43 @@ import java.util.Map;
 
 import app.model.entity.*;
 
-public class FightNode extends Node implements INodeStar{
+public class FightNode<Spell> extends Node<Spell>{
 	private Monster monstre;
 	private Player player;
 	
 	public FightNode() {
-		super();
-	}
-	
-	@Override
-	public int getHeuristic() {
-		// TODO Auto-generated method stub
-		return 0;
+		this.player = new Player();
+		this.monstre = new Monster();
 	}
 
 	@Override
 	public boolean isGoal() {
-		// TODO Auto-generated method stub
-		return false;
+		if (monstre.getCurrentHP() <= 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
 	public boolean isDeadLock() {
-		// TODO Auto-generated method stub
-		return false;
+		if (player.getCurrentHP() <= 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
 	public Map getNeighbors() {
-		// TODO Auto-generated method stub
+		Player nouveauJoueur = this.player;
+		Monster nouveauMonstre = this.monstre;
+		
+		Node<Entity> nouveauNoeux = new Node<Entity>();
+		nouveauNoeux.parent = (INode<Entity>) this.getParent();
+		nouveauNoeux.cost = this.getCost();
 		return null;
 	}
 
@@ -44,15 +52,14 @@ public class FightNode extends Node implements INodeStar{
 	}
 
 	@Override
-	public Object getPath() {
-		// TODO Auto-generated method stub
+	public Spell getPath() {
+		
 		return null;
 	}
 
 	@Override
-	public INode getParent() {
-		// TODO Auto-generated method stub
-		return null;
+	public INode<Spell> getParent() {
+		return super.getParent();
 	}
 
 	@Override

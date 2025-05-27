@@ -1,5 +1,8 @@
 package ai;
 
+import app.ai.INode;
+import app.ai.LessHPNode;
+import app.ai.LessManaNode;
 import app.ai.fight.*;
 import app.model.entity.Monster;
 import app.model.entity.Player;
@@ -9,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SolverTest {
