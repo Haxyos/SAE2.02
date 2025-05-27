@@ -11,8 +11,8 @@ public class FightNode<Spell> extends Node<Spell> implements INodeStar<Spell>{
 	private Monster monstre;
 	private Player player;
 	
-	public FightNode() {
-		super();
+	public FightNode(int cost, INode<Spell> parent, Spell path) {
+		super(cost, parent, path);
 		this.player = new Player();
 		this.monstre = new Monster();
 	}

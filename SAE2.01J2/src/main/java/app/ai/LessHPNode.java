@@ -10,14 +10,14 @@ public class LessHPNode<Spell> extends FightNode<Spell>{
 	
 	private Monster monstre;
 	private Player player;
-	public LessHPNode(Object object, int i, Object object2, Player player2, Monster monster) {
-		super();
+	public LessHPNode(INode<Spell> parent, int i, Spell path, Player player2, Monster monster) {
+		super(i, parent, path);
 		this.player = player2;
 		this.monstre = monster;
 	}
 	@Override
 	public int getHeuristic() {
-		return 0;
+		return player.getMaximumHP() - player.getCurrentHP();
 	}
 
 }
