@@ -1,14 +1,8 @@
-<<<<<<< HEAD:SAE2.01J2/src/test/java/app/ai/SolverTest.java
 package app.ai;
-
-=======
-package app.ai.test.test.java.ai;
 
 import app.ai.INode;
 import app.ai.LessHPNode;
 import app.ai.LessManaNode;
-import app.ai.fight.*;
->>>>>>> origin/Resolution_combat:SAE2.01J2/src/main/java/app/ai/test/test/java/ai/SolverTest.java
 import app.model.entity.Monster;
 import app.model.entity.Player;
 import app.model.fight.Spell;
@@ -17,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SolverTest {

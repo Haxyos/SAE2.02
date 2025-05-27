@@ -45,7 +45,7 @@ public class FightNode<Spell> extends Node<Spell> implements INodeStar<Spell>{
 		for (app.model.fight.Spell s : nouveauJoueur.availableSpells()) {
 			
 		}
-		Node<Spell> nouveauNoeux = new Node<Spell>();
+		FightNode<Spell> nouveauNoeux = new FightNode<>(0, this, null);
 		nouveauNoeux.parent = (INode<Spell>) this.getParent();
 		nouveauNoeux.cost = this.getCost();
 		HashMap<?, Node<Spell>> map = new HashMap<Spell, Node<Spell>>();

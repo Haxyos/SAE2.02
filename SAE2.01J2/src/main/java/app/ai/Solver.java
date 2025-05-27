@@ -2,6 +2,8 @@ package app.ai;
 
 import app.ai.INode;
 import app.ai.INodeStar;
+import app.model.entity.*;
+import app.model.fight.*;
 
 import java.util.*;
 
@@ -68,4 +70,12 @@ public class Solver<T> {
         }
         return null;
     }
-}
+
+
+    public static boolean canBeat(Player p, Monster m){
+        INodeStar<Spell> start = new FightNode<>(0, null, null, p, m);
+        Solver<Spell> solver = new Solver<>();
+        INodeStar<Spell> solution = solver.AStar(start);
+        return solution != null && solution.isGoal();
+
+    }}

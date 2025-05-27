@@ -14,7 +14,8 @@ public abstract class Node<T> implements INode<T>{
 		this.parent = parent;
 		this.path = path;
 	}
-	
+
+
 	@Override
 	public abstract boolean isGoal();
 	
