@@ -4,6 +4,7 @@ import app.model.entity.Monster;
 import app.model.entity.Player;
 import app.model.exceptions.MauvaisPourcentageException;
 import app.model.exceptions.NotEnoughtPlaceException;
+import app.model.map.Path;
 import app.model.map.Place;
 import app.model.map.World;
 
@@ -69,6 +70,14 @@ public class WorldGenerator {
 				id++;
 				Place place = new Place(i, "", monstre, "", world, false, false, false);
 				world.addPlace(place);
+			}
+		}
+		
+		int nbCheminParPlace = (int) (percentageCoverage * nbPlace -1);
+		for (int i = 0; i < world.getPlaces().size(); i++) {
+			for (int j = 0; j < nbCheminParPlace; j++) {
+				Path path = new Path(world.getPlaceFromId(i), world.getPlaceFromId((int) Math.random()%world.getPlaces().size()), (int) Math.random()%250);
+				world.addPath(path);
 			}
 		}
 		return world;
