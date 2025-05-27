@@ -1,46 +1,52 @@
 package app.ai;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Node<T> implements INode{
+public abstract class Node<T> implements INode<T>{
 	protected int cost;
 	protected INode<T> parent;
 	protected T path;
 	
+	public Node(int cost, INode<T> parent, T path) {
+		this.cost = cost;
+		this.parent = parent;
+		this.path = path;
+	}
+	
 	@Override
-	public boolean isGoal() {
-		// TODO Auto-generated method stub
-		return false;
+	public abstract boolean isGoal();
+	
+	@Override
+	public abstract boolean isDeadLock();
+	
+	@Override
+	public abstract Map<INode<T>, Integer> getNeighbors();
+	
+	@Override
+	public List<INode<T>> rebuildPath() {
+		ArrayList<INode<T>> list = new  ArrayList<INode<T>>();
+		INode<T> par = this.parent;
+		while(par != null) {
+			list.add(par);
+			par = par.getParent();
+		}
+		return list;
+	}
+	
+	@Override
+	public T getPath() {
+		return this.path;
 	}
 	@Override
-	public boolean isDeadLock() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public Map getNeighbors() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List rebuildPath() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Object getPath() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public INode getParent() {
-		// TODO Auto-generated method stub
-		return null;
+	public INode<T> getParent() {
+		return this.parent;
 	}
 	@Override
 	public int getCost() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.cost;
 	}
+	
+	
 }
