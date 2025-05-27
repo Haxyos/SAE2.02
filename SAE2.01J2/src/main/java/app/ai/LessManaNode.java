@@ -9,8 +9,10 @@ public class LessManaNode<Spell> extends FightNode<Spell>{
 	private Monster monstre;
 	private Player player;
 	
-	public LessManaNode(Object object, int i, Object object2, Player player2, Monster monster) {
-		// TODO Auto-generated constructor stub
+	public LessManaNode(INode<Spell> parent, int i, Spell path, Player player2, Monster monster) {
+		super(i, parent, path);
+		this.player = player2;
+		this.monstre = monster;
 	}
 	
 	@Override
